@@ -1,5 +1,5 @@
 /* ========================
-   GLOBAL & RESET
+   GLOBAL & VARS
    ======================== */
 :root {
     --felt-green: #35654d;
@@ -8,6 +8,8 @@
     --wood-light: #5d4037;
     --gold: #d4af37;
     --text-white: #e0e0e0;
+    --card-width: 60px;
+    --card-height: 88px;
 }
 
 * { box-sizing: border-box; }
@@ -18,11 +20,10 @@ body {
     background: radial-gradient(circle at center, #1a1a1a, #000);
     color: var(--text-white);
     font-family: 'Roboto', sans-serif;
-    overflow: hidden; /* Prevents scrolling bars */
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start; /* Start from top */
 }
 
 /* Texture Overlay */
@@ -35,272 +36,237 @@ body {
 }
 
 /* ========================
-   MENU
+   MENU STYLES
    ======================== */
 .game-menu {
     position: absolute;
     top: 50%; left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    background: rgba(0, 0, 0, 0.9);
-    padding: 50px;
+    background: rgba(10, 10, 10, 0.95);
+    padding: 60px;
     border-radius: 20px;
     border: 2px solid var(--gold);
-    box-shadow: 0 0 50px rgba(212, 175, 55, 0.2);
+    box-shadow: 0 0 80px rgba(212, 175, 55, 0.2);
     z-index: 100;
     width: 90%;
     max-width: 500px;
 }
 
-.game-menu h1 {
+.logo-area h1 {
     font-family: 'Cinzel', serif;
     font-size: 2.5rem;
     color: var(--gold);
     margin: 0;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.8);
 }
 
-.game-menu p {
-    color: #888;
-    margin-bottom: 30px;
-    letter-spacing: 3px;
-}
+.logo-area p { color: #888; letter-spacing: 4px; font-size: 0.8rem; margin-top: 10px; margin-bottom: 40px; }
+
+.menu-buttons { display: flex; flex-direction: column; gap: 15px; }
 
 .menu-btn {
-    display: block;
-    width: 100%;
-    padding: 15px;
-    margin: 10px 0;
+    padding: 18px;
     background: transparent;
     color: var(--gold);
     border: 1px solid var(--gold);
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     cursor: pointer;
     transition: all 0.3s;
     font-family: 'Cinzel', serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
-.menu-btn:hover {
-    background: var(--gold);
-    color: black;
-}
+.menu-btn:hover { background: var(--gold); color: black; box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); }
 
 /* ========================
-   GAME TABLE CONTAINER
+   TABLE LAYOUT
    ======================== */
 .table-wrapper {
-    width: 100%;
-    height: 85vh; /* Occupy top 85% of screen */
-    display: flex;
-    justify-content: center;
-    align-items: center; /* Center vertically in the space */
-    perspective: 1200px;
+    width: 100%; height: 85vh;
+    display: flex; justify-content: center; align-items: center;
+    perspective: 1000px;
 }
 
 .poker-table {
-    /* Responsive Dimensions */
-    width: 90vw; /* 90% of viewport width */
-    max-width: 900px;
-    height: 60vh; /* 60% of viewport height (Dynamically shrinks) */
-    max-height: 600px;
-    
-    background: radial-gradient(circle, var(--felt-green) 40%, var(--felt-dark) 100%);
-    border-radius: 150px;
+    width: 95vw; max-width: 1000px;
+    height: 65vh; max-height: 700px;
+    background: radial-gradient(circle, var(--felt-green) 30%, var(--felt-dark) 90%);
+    border-radius: 200px;
     border: 20px solid var(--wood-light);
-    box-shadow: 
-        inset 0 0 100px rgba(0,0,0,0.8),
-        0 20px 50px rgba(0,0,0,0.8),
-        0 0 0 15px var(--wood-dark);
-    
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 2vh 2vw; /* Responsive padding */
+    box-shadow: inset 0 0 100px rgba(0,0,0,0.9), 0 30px 60px rgba(0,0,0,0.8), 0 0 0 15px var(--wood-dark);
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: 3vh 3vw;
     position: relative;
-    transform: rotateX(10deg); /* Slight tilt */
+    transform: rotateX(20deg);
 }
 
-/* ========================
-   AREAS
-   ======================== */
-.player-area {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    z-index: 10;
+.player-area { display: flex; flex-direction: column; align-items: center; z-index: 10; position: relative; }
+.cpu-area { margin-top: -30px; }
+.user-area { margin-bottom: 20px; }
+
+/* Avatars & Info */
+.player-info {
+    display: flex; flex-direction: column; align-items: center;
+    background: rgba(0,0,0,0.5); padding: 5px 20px; border-radius: 20px;
+    margin: 10px 0; border: 1px solid #444;
 }
 
-/* Push CPU down slightly */
-.cpu-area { margin-top: -10px; }
-
-/* Pull User UP so they don't fall off the table */
-.user-area { 
-    margin-bottom: 20px; 
+.avatar {
+    width: 50px; height: 50px;
+    background: linear-gradient(135deg, #222, #000);
+    border: 2px solid var(--gold);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 0.7rem; color: #888; margin-bottom: -15px; z-index: 12;
 }
 
-/* Make sure hands layout horizontally */
-.hand, .cards-container {
-    display: flex;
-    flex-direction: row; /* FORCE ROW */
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-    min-height: 110px;
+.player-name { font-weight: bold; color: var(--gold); font-size: 0.9rem; }
+.status-bubble { font-size: 0.8rem; color: #aaa; min-height: 1.2em; }
+.chips-display { display: flex; align-items: center; gap: 5px; color: white; font-size: 0.9rem; margin-top: 3px; }
+.chip-icon { width: 12px; height: 12px; background: #b71c1c; border-radius: 50%; border: 1px dashed white; }
+
+/* Center Field */
+.center-field { flex-grow: 1; display: flex; align-items: center; justify-content: center; }
+.center-content { text-align: center; width: 100%; }
+
+.pot-display {
+    font-family: 'Cinzel', serif; font-size: 1.5rem; color: var(--gold);
+    margin-bottom: 15px; text-shadow: 0 2px 4px rgba(0,0,0,0.8);
 }
 
-/* Center Field (Pot & Community Cards) */
-.center-field {
-    flex-grow: 1;
-    display: flex;
-    align-items: center; /* Center Vertically */
-    justify-content: center; /* Center Horizontally */
-}
-
-.center-content {
-    text-align: center;
-    width: 100%;
-}
+.bj-pay-text { font-size: 1.4rem; color: rgba(255,255,255,0.15); font-weight: bold; font-family: 'Cinzel'; }
+.bj-rule-text { font-size: 0.8rem; color: rgba(255,255,255,0.3); margin-top: 5px;}
 
 /* ========================
    CARDS
    ======================== */
+.hand, .cards-container {
+    display: flex; justify-content: center; gap: 8px; min-height: var(--card-height);
+}
+
 .card {
-    width: 60px; /* Slightly smaller for mobile safety */
-    height: 90px;
-    background: white;
-    border-radius: 6px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 4px;
-    font-family: 'Cinzel', serif;
-    font-weight: bold;
-    font-size: 1.1rem;
-    box-shadow: 2px 2px 8px rgba(0,0,0,0.4);
-    position: relative;
-    user-select: none;
-    
-    /* Animation defaults */
-    opacity: 0; 
-    transform: translateY(-50px) scale(0.8);
-    animation: dealCard 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    width: var(--card-width); height: var(--card-height);
+    background: white; border-radius: 6px;
+    display: flex; flex-direction: column; justify-content: space-between; padding: 4px;
+    font-family: 'Cinzel', serif; font-weight: bold; font-size: 1rem;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+    animation: dealAnim 0.4s ease-out forwards;
+    opacity: 0; transform: translateY(-50px);
 }
 
 .card.red { color: #d32f2f; }
 .card.black { color: #212121; }
-
-.card-top, .card-bottom { display: block; line-height: 1; font-size: 0.9rem; }
-.card-bottom { transform: rotate(180deg); }
-.card-center {
-    font-size: 1.8rem;
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-}
+.card-center { font-size: 1.8rem; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+.card-bottom { transform: rotate(180deg); display: block; }
+.card-top { display: block; line-height: 1; }
 
 .card-back {
-    background: repeating-linear-gradient(45deg, #b71c1c, #b71c1c 10px, #c62828 10px, #c62828 20px);
-    border: 2px solid white;
+    background: repeating-linear-gradient(45deg, #800000, #800000 5px, #a00000 5px, #a00000 10px);
+    border: 2px solid white; position: relative;
 }
-
-@keyframes dealCard {
-    to { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-/* ========================
-   UI ELEMENTS (Pot, Bubbles)
-   ======================== */
-.player-info {
-    background: rgba(0,0,0,0.4);
-    padding: 5px 15px;
-    border-radius: 20px;
-    margin-top: 5px;
-    text-align: center;
-}
-
-.player-name { font-weight: bold; font-size: 0.9rem; color: #ddd; }
-.chips-display { color: var(--gold); font-size: 0.9rem; }
-
-.status-bubble {
-    background: var(--gold);
-    color: black;
-    padding: 2px 10px;
-    border-radius: 10px;
-    font-size: 0.8rem;
-    font-weight: bold;
-    margin-top: 2px;
-}
-
-.pot-display {
-    background: rgba(0,0,0,0.6);
-    padding: 8px 25px;
-    border-radius: 50px;
-    border: 2px solid var(--gold);
-    display: inline-block;
-    font-size: 1.3rem;
-    color: var(--gold);
-    margin-bottom: 15px;
+.card-back::after {
+    content: 'V'; color: rgba(255,255,255,0.2); font-size: 2rem;
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
     font-family: 'Cinzel', serif;
 }
 
-.bj-pay-text { font-size: 1.5rem; color: rgba(255,255,255,0.2); font-weight: bold;}
-.bj-rule-text { font-size: 0.8rem; color: rgba(255,255,255,0.4); }
+@keyframes dealAnim { to { opacity: 1; transform: translateY(0); } }
 
 /* ========================
    CONTROLS BAR
    ======================== */
 .controls-bar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 15vh; /* Fixed height for controls */
-    background: linear-gradient(to top, #111, #222);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    border-top: 2px solid #444;
-    box-shadow: 0 -10px 30px rgba(0,0,0,0.8);
-    z-index: 200;
+    position: fixed; bottom: 0; left: 0; width: 100%; height: 15vh;
+    background: #111; border-top: 2px solid #333;
+    display: flex; justify-content: center; align-items: center; gap: 20px; z-index: 200;
 }
 
 .action-buttons { display: flex; gap: 15px; }
 
 .action-btn {
-    padding: 15px 30px;
-    border-radius: 8px;
-    border: none;
-    font-weight: bold;
-    text-transform: uppercase;
-    cursor: pointer;
-    font-size: 1rem;
-    box-shadow: 0 4px 0 rgba(0,0,0,0.3);
-    transition: transform 0.1s, box-shadow 0.1s;
+    padding: 12px 25px; border-radius: 6px; border: none;
+    font-weight: bold; text-transform: uppercase; cursor: pointer;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.5); transition: 0.1s;
 }
+.action-btn:active { transform: translateY(4px); box-shadow: none; }
+.action-btn:disabled { opacity: 0.3; cursor: not-allowed; transform: none; box-shadow: none; }
 
-.action-btn:active {
-    transform: translateY(4px);
-    box-shadow: none;
-}
-
-.primary { background: var(--gold); color: #222; }
-.secondary { background: #555; color: white; border: 1px solid #777; }
-.danger { background: #b71c1c; color: white; }
-
-.action-btn:disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
-}
+.primary { background: var(--gold); color: #111; }
+.secondary { background: #444; color: white; border: 1px solid #666; }
+.danger { background: #8b0000; color: white; }
 
 .exit-btn {
-    position: absolute;
-    right: 30px;
-    background: transparent;
-    color: #666;
-    border: 1px solid #444;
-    padding: 8px 15px;
+    position: absolute; right: 30px; background: transparent;
+    color: #666; border: 1px solid #444; padding: 8px 15px; cursor: pointer;
 }
 .exit-btn:hover { color: white; border-color: white; }
+
+/* ========================
+   INSTRUCTION MODAL
+   ======================== */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.95); /* Very dark background */
+    z-index: 9999; /* Sit on top of everything */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
+    border: 2px solid var(--gold);
+    border-radius: 15px;
+    padding: 40px;
+    width: 90%;
+    max-width: 800px;
+    color: var(--text-white);
+    text-align: center;
+    box-shadow: 0 0 50px rgba(212, 175, 55, 0.15);
+}
+
+.modal-content h2 {
+    font-family: 'Cinzel', serif;
+    color: var(--gold);
+    margin-top: 0;
+    font-size: 2rem;
+    border-bottom: 1px solid #333;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+.rules-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.rules-section h3 {
+    color: var(--gold);
+    font-family: 'Cinzel', serif;
+    margin-bottom: 10px;
+}
+
+.rules-section ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.rules-section li {
+    margin-bottom: 8px;
+    padding-left: 15px;
+    border-left: 2px solid #333;
+    color: #ccc;
+    font-size: 0.9rem;
+}
+
+/* Mobile Responsiveness for Modal */
+@media (max-width: 700px) {
+    .rules-grid { grid-template-columns: 1fr; }
+    .modal-content { padding: 20px; max-height: 90vh; overflow-y: auto; }
+}

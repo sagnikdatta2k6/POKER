@@ -30,7 +30,7 @@ Since there are no build steps or bundlers (like Webpack), you can run this inst
 
 1.  Clone the repo:
     ```bash
-    git clone [https://github.com/yourusername/velvet-casino.git](https://github.com/yourusername/velvet-casino.git)
+    git clone [Play Poker](https://github.com/sagnikdatta2k6/POKER)
     ```
 2.  Open `index.html` in your browser.
 

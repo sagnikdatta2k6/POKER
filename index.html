@@ -3,11 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Velvet Arcade: Poker & Blackjack</title>
+    <title>Velvet Arcade: Poker & Blackjack</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+    <div id="instruction-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h2>📜 HOUSE RULES</h2>
+            
+            <div class="rules-grid">
+                <div class="rules-section">
+                    <h3>🃏 Texas Hold'em</h3>
+                    <p><strong>Goal:</strong> Form the best 5-card hand using your 2 hole cards and the 5 community cards.</p>
+                    <ul>
+                        <li><strong>The Flop:</strong> 3 Community cards are dealt.</li>
+                        <li><strong>Turn & River:</strong> 4th and 5th cards are dealt.</li>
+                        <li><strong>Showdown:</strong> Hands are compared automatically.</li>
+                        <li><small><em>Pairs, Straights, Flushes, and Full Houses are valid.</em></small></li>
+                    </ul>
+                </div>
+
+                <div class="rules-section">
+                    <h3>♠️ Blackjack 21</h3>
+                    <p><strong>Goal:</strong> Get closer to 21 than the dealer without going over (Busting).</p>
+                    <ul>
+                        <li><strong>Values:</strong> Face cards = 10. Aces = 1 or 11.</li>
+                        <li><strong>The Dealer:</strong> Must draw to 16 and stand on 17.</li>
+                        <li><strong>Payouts:</strong> Standard wins pay 1:1. Blackjack pays 3:2.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <button id="btn-enter-casino" class="action-btn primary" style="margin-top: 20px; width: 100%; font-size: 1.2rem;">
+                I Understand - Enter Casino
+            </button>
+        </div>
+    </div>
 
     <div class="overlay-texture"></div>
 

@@ -434,6 +434,18 @@ const menu = document.getElementById('main-menu');
 const table = document.getElementById('table-container');
 const controls = document.getElementById('controls-area');
 
+// INSTRUCTION MODAL LOGIC
+document.getElementById('btn-enter-casino').addEventListener('click', () => {
+    const modal = document.getElementById('instruction-modal');
+    modal.style.opacity = '0'; // Fade out animation
+    modal.style.transition = 'opacity 0.5s';
+    
+    // Remove from DOM after fade completes
+    setTimeout(() => {
+        modal.style.display = 'none';
+    }, 500);
+});
+
 // POKER BINDINGS
 document.getElementById('select-poker').addEventListener('click', () => {
     menu.style.display = 'none';
