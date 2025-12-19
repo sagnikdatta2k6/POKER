@@ -6,7 +6,7 @@ Currently features **Texas Hold'em** and **Blackjack**.
 
 👉 **[Play the Live Demo](YOUR_GITHUB_PAGES_LINK_HERE)**
 
-![Game Screenshot](https://via.placeholder.com/800x400?text=Gameplay+Screenshot)
+![Game Screenshot](Screenshot.png)
 
 ---
 
