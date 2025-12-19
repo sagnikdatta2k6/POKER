@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Velvet Arcade: Poker & Blackjack</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="overlay-texture"></div>
+
+    <div class="game-menu" id="main-menu">
+        <div class="logo-area">
+            <h1>♠ VELVET CASINO ♦</h1>
+            <p>HIGH STAKES ARCADE</p>
+        </div>
+        <div class="menu-buttons">
+            <button id="select-poker" class="menu-btn">Texas Hold'em</button>
+            <button id="select-blackjack" class="menu-btn">Blackjack 21</button>
+        </div>
+    </div>
+
+    <div class="table-wrapper" id="table-container" style="display:none;">
+        <div class="poker-table">
+            
+            <div class="player-area cpu-area">
+                <div class="avatar">Bot</div>
+                <div class="player-info">
+                    <div class="player-name" id="opponent-name">Dealer</div>
+                    <div class="status-bubble" id="game-status">Waiting...</div>
+                </div>
+                <div class="hand" id="cpu-hand"></div>
+            </div>
+
+            <div class="center-field">
+                <div id="poker-center" class="center-content">
+                    <div class="pot-display">Pot: $<span id="pot-amount">0</span></div>
+                    <div class="cards-container" id="community-cards"></div>
+                </div>
+
+                <div id="blackjack-center" class="center-content" style="display:none;">
+                    <div class="bj-pay-text">BLACKJACK PAYS 3:2</div>
+                    <div class="bj-rule-text">Dealer must draw to 16 and stand on 17</div>
+                </div>
+            </div>
+
+            <div class="player-area user-area">
+                <div class="hand" id="player-hand"></div>
+                <div class="player-info">
+                    <div class="player-name">You</div>
+                    <div class="chips-display">
+                        <div class="chip-icon"></div>
+                        <span>$1,000</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="controls-bar" id="controls-area" style="display:none;">
+        
+        <div class="action-buttons" id="poker-controls">
+            <button id="poker-deal" class="action-btn primary">Deal Hand</button>
+            <button id="poker-next" class="action-btn secondary" disabled>Check / Call</button>
+            <button id="poker-fold" class="action-btn danger" disabled>Fold</button>
+        </div>
+
+        <div class="action-buttons" id="blackjack-controls" style="display:none;">
+            <button id="bj-deal" class="action-btn primary">New Deal</button>
+            <button id="bj-hit" class="action-btn secondary" disabled>Hit</button>
+            <button id="bj-stand" class="action-btn danger" disabled>Stand</button>
+        </div>
+
+        <button id="exit-btn" class="exit-btn">Exit</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

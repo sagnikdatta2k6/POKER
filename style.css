@@ -1,0 +1,306 @@
+/* ========================
+   GLOBAL & RESET
+   ======================== */
+:root {
+    --felt-green: #35654d;
+    --felt-dark: #2a503d;
+    --wood-dark: #3e2723;
+    --wood-light: #5d4037;
+    --gold: #d4af37;
+    --text-white: #e0e0e0;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    height: 100vh;
+    background: radial-gradient(circle at center, #1a1a1a, #000);
+    color: var(--text-white);
+    font-family: 'Roboto', sans-serif;
+    overflow: hidden; /* Prevents scrolling bars */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* Start from top */
+}
+
+/* Texture Overlay */
+.overlay-texture {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* ========================
+   MENU
+   ======================== */
+.game-menu {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background: rgba(0, 0, 0, 0.9);
+    padding: 50px;
+    border-radius: 20px;
+    border: 2px solid var(--gold);
+    box-shadow: 0 0 50px rgba(212, 175, 55, 0.2);
+    z-index: 100;
+    width: 90%;
+    max-width: 500px;
+}
+
+.game-menu h1 {
+    font-family: 'Cinzel', serif;
+    font-size: 2.5rem;
+    color: var(--gold);
+    margin: 0;
+}
+
+.game-menu p {
+    color: #888;
+    margin-bottom: 30px;
+    letter-spacing: 3px;
+}
+
+.menu-btn {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+    background: transparent;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-family: 'Cinzel', serif;
+}
+
+.menu-btn:hover {
+    background: var(--gold);
+    color: black;
+}
+
+/* ========================
+   GAME TABLE CONTAINER
+   ======================== */
+.table-wrapper {
+    width: 100%;
+    height: 85vh; /* Occupy top 85% of screen */
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Center vertically in the space */
+    perspective: 1200px;
+}
+
+.poker-table {
+    /* Responsive Dimensions */
+    width: 90vw; /* 90% of viewport width */
+    max-width: 900px;
+    height: 60vh; /* 60% of viewport height (Dynamically shrinks) */
+    max-height: 600px;
+    
+    background: radial-gradient(circle, var(--felt-green) 40%, var(--felt-dark) 100%);
+    border-radius: 150px;
+    border: 20px solid var(--wood-light);
+    box-shadow: 
+        inset 0 0 100px rgba(0,0,0,0.8),
+        0 20px 50px rgba(0,0,0,0.8),
+        0 0 0 15px var(--wood-dark);
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 2vh 2vw; /* Responsive padding */
+    position: relative;
+    transform: rotateX(10deg); /* Slight tilt */
+}
+
+/* ========================
+   AREAS
+   ======================== */
+.player-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 10;
+}
+
+/* Push CPU down slightly */
+.cpu-area { margin-top: -10px; }
+
+/* Pull User UP so they don't fall off the table */
+.user-area { 
+    margin-bottom: 20px; 
+}
+
+/* Make sure hands layout horizontally */
+.hand, .cards-container {
+    display: flex;
+    flex-direction: row; /* FORCE ROW */
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    min-height: 110px;
+}
+
+/* Center Field (Pot & Community Cards) */
+.center-field {
+    flex-grow: 1;
+    display: flex;
+    align-items: center; /* Center Vertically */
+    justify-content: center; /* Center Horizontally */
+}
+
+.center-content {
+    text-align: center;
+    width: 100%;
+}
+
+/* ========================
+   CARDS
+   ======================== */
+.card {
+    width: 60px; /* Slightly smaller for mobile safety */
+    height: 90px;
+    background: white;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 4px;
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+    font-size: 1.1rem;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+    position: relative;
+    user-select: none;
+    
+    /* Animation defaults */
+    opacity: 0; 
+    transform: translateY(-50px) scale(0.8);
+    animation: dealCard 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.card.red { color: #d32f2f; }
+.card.black { color: #212121; }
+
+.card-top, .card-bottom { display: block; line-height: 1; font-size: 0.9rem; }
+.card-bottom { transform: rotate(180deg); }
+.card-center {
+    font-size: 1.8rem;
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.card-back {
+    background: repeating-linear-gradient(45deg, #b71c1c, #b71c1c 10px, #c62828 10px, #c62828 20px);
+    border: 2px solid white;
+}
+
+@keyframes dealCard {
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ========================
+   UI ELEMENTS (Pot, Bubbles)
+   ======================== */
+.player-info {
+    background: rgba(0,0,0,0.4);
+    padding: 5px 15px;
+    border-radius: 20px;
+    margin-top: 5px;
+    text-align: center;
+}
+
+.player-name { font-weight: bold; font-size: 0.9rem; color: #ddd; }
+.chips-display { color: var(--gold); font-size: 0.9rem; }
+
+.status-bubble {
+    background: var(--gold);
+    color: black;
+    padding: 2px 10px;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin-top: 2px;
+}
+
+.pot-display {
+    background: rgba(0,0,0,0.6);
+    padding: 8px 25px;
+    border-radius: 50px;
+    border: 2px solid var(--gold);
+    display: inline-block;
+    font-size: 1.3rem;
+    color: var(--gold);
+    margin-bottom: 15px;
+    font-family: 'Cinzel', serif;
+}
+
+.bj-pay-text { font-size: 1.5rem; color: rgba(255,255,255,0.2); font-weight: bold;}
+.bj-rule-text { font-size: 0.8rem; color: rgba(255,255,255,0.4); }
+
+/* ========================
+   CONTROLS BAR
+   ======================== */
+.controls-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 15vh; /* Fixed height for controls */
+    background: linear-gradient(to top, #111, #222);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    border-top: 2px solid #444;
+    box-shadow: 0 -10px 30px rgba(0,0,0,0.8);
+    z-index: 200;
+}
+
+.action-buttons { display: flex; gap: 15px; }
+
+.action-btn {
+    padding: 15px 30px;
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-size: 1rem;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.3);
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.action-btn:active {
+    transform: translateY(4px);
+    box-shadow: none;
+}
+
+.primary { background: var(--gold); color: #222; }
+.secondary { background: #555; color: white; border: 1px solid #777; }
+.danger { background: #b71c1c; color: white; }
+
+.action-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.exit-btn {
+    position: absolute;
+    right: 30px;
+    background: transparent;
+    color: #666;
+    border: 1px solid #444;
+    padding: 8px 15px;
+}
+.exit-btn:hover { color: white; border-color: white; }
